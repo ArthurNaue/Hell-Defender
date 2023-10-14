@@ -57,7 +57,7 @@ def game():
     spawn = pygame.USEREVENT + 1
     inimigo1 = pygame.image.load("player_down2.png")
     inimigo_spawn = False
-    destino = (castelo_x, castelo_y)
+    destino = (270, 300)
 
     pygame.time.set_timer(spawn, 3000)
 
