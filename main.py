@@ -1,8 +1,10 @@
-import pygame, sys
+import pygame, sys, random
+from inimigos import Inimigos
 
 pygame.init()
 
 screen = pygame.display.set_mode((600, 600))
+branco = (255, 255, 255)
 
 def __init__():
     main_menu()
@@ -34,8 +36,8 @@ def main_menu():
             pygame.quit()
             sys.exit()
 
-        pygame.draw.rect(screen, (255, 255, 255), botao1)
-        pygame.draw.rect(screen, (255, 255, 255), botao2)
+        pygame.draw.rect(screen, (branco), botao1)
+        pygame.draw.rect(screen, (branco), botao2)
         screen.blit(texto1_surface, texto1_rect)
         screen.blit(texto2_surface, texto2_rect)
 
@@ -46,13 +48,44 @@ def game():
     black = (0, 0, 0)
     screen.fill(black)
     running =  True
+    castelo = pygame.Rect(275, 275, 50, 50)
+    clock = pygame.time.Clock()
+    spawn = pygame.USEREVENT + 1
+    inimigo1 = pygame.image.load("player_down2.png")
+    inimigo_spawn = False
+    destino = (castelo.x, castelo.y)
+
+    pygame.time.set_timer(spawn, 3000)
 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            elif event.type == spawn:
+                if inimigo_spawn == False:
+                    inimigo_spawn = True
+                    inimigo_x = random.randint(0, 800)
+                    inimigo_y = random.randint(0, 800)
+                    inimigo = Inimigos(inimigo1, inimigo_x, inimigo_y)
+
+        screen.fill((0, 0, 0))
+
+        pygame.draw.rect(screen, (branco), castelo)
+
+        if inimigo_spawn:
+            screen.blit(inimigo.tipo, inimigo.pos)
+            inimigo.seguir(destino)
+
+            if pygame.mouse.get_pressed()[0] and inimigo.rect.collidepoint(pygame.mouse.get_pos()):
+                inimigo_spawn = False
+            
+            if inimigo.rect.colliderect(castelo):
+                pygame.quit()
+                sys.exit()
 
         pygame.display.update()
+
+        clock.tick(60)
 
 main_menu()
