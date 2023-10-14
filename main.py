@@ -13,10 +13,14 @@ def main_menu():
     botao1 = pygame.Rect(250, 280, 100, 50)
     botao2 = pygame.Rect(250, 360, 100, 50)
     font = pygame.font.Font(None, 36)
-    texto = "JOGAR"
-    texto_surface = font.render(texto, True, (0, 0, 0))
-    texto_rect = texto_surface.get_rect()
-    texto_rect.center =  botao1.center
+    texto1 = "JOGAR"
+    texto2 = "SAIR"
+    texto1_surface = font.render(texto1, True, (0, 0, 0))
+    texto1_rect = texto1_surface.get_rect()
+    texto1_rect.center =  botao1.center
+    texto2_surface = font.render(texto2, True, (0, 0, 0))
+    texto2_rect = texto2_surface.get_rect()
+    texto2_rect.center =  botao2.center
 
     while running:
         for event in pygame.event.get():
@@ -32,7 +36,8 @@ def main_menu():
 
         pygame.draw.rect(screen, (255, 255, 255), botao1)
         pygame.draw.rect(screen, (255, 255, 255), botao2)
-        screen.blit(texto_surface, texto_rect)
+        screen.blit(texto1_surface, texto1_rect)
+        screen.blit(texto2_surface, texto2_rect)
 
         pygame.display.update()
 
