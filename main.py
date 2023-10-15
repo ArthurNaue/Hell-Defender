@@ -55,7 +55,11 @@ def game():
     castelo_rect.topleft = (castelo_x, castelo_y)
     clock = pygame.time.Clock()
     spawn = pygame.USEREVENT + 1
-    inimigo1 = pygame.image.load("inimigo1.png")
+    fps = 20
+    indexImg = 0
+    inimigo1 = []
+    inimigo1.append(pygame.image.load("inimigo1_andando1.png"))
+    inimigo1.append(pygame.image.load("inimigo1_andando2.png"))
     inimigo_spawn = False
     destino = (270, 300)
     background = pygame.image.load("background.png")
@@ -74,12 +78,21 @@ def game():
                     inimigo_position = random.choice(posicoes_possiveis)
                     inimigo = Inimigos(inimigo1, inimigo_position[0], inimigo_position[1])
 
+        if fps <= 30:
+            fps -= 1
+        if fps <= 0:
+            fps = 30
+            if indexImg == 1:
+                indexImg -= 1
+            else:
+                indexImg += 1
+
         screen.blit(background, (0, 0))
 
         screen.blit(castelo, (castelo_x, castelo_y))
 
         if inimigo_spawn:
-            screen.blit(inimigo.tipo, inimigo.pos)
+            screen.blit(inimigo.tipo[indexImg], inimigo.pos)
             inimigo.seguir(destino)
 
             if pygame.mouse.get_pressed()[0] and inimigo.rect.collidepoint(pygame.mouse.get_pos()):

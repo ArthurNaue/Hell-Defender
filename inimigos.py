@@ -6,7 +6,7 @@ class Inimigos:
         self.x = x
         self.y = y
         self.pos = pygame.Vector2(self.x, self.y)
-        self.rect = tipo.get_rect()
+        self.rect = tipo[0].get_rect()
 
     def seguir(self, destino):
         if self.pos[0] < destino[0]:
