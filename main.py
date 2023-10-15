@@ -86,7 +86,10 @@ def game():
                     inimigo_spawn = True
                     posicoes_possiveis = [(-10, -10), (-10, 810), (810, -10), (810, 810), (-10, 300), (300, -10), (300, 810), (810, 300)]
                     inimigo_position = random.choice(posicoes_possiveis)
-                    placeholder = random.choice(inimigos)
+                    if pontos < 5:
+                        placeholder = inimigo1
+                    else:
+                        placeholder = random.choice(inimigos)
                     if placeholder == inimigo1:
                         placeholder2 = 1
                     if placeholder == inimigo2:
