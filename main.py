@@ -70,9 +70,9 @@ def game():
             elif event.type == spawn:
                 if inimigo_spawn == False:
                     inimigo_spawn = True
-                    inimigo_x = random.randint(0, 800)
-                    inimigo_y = random.randint(0, 800)
-                    inimigo = Inimigos(inimigo1, inimigo_x, inimigo_y)
+                    posicoes_possiveis = [(-10, -10), (-10, 810), (810, -10), (810, 810), (-10, 300), (300, -10), (300, 810), (810, 300)]
+                    inimigo_position = random.choice(posicoes_possiveis)
+                    inimigo = Inimigos(inimigo1, inimigo_position[0], inimigo_position[1])
 
         screen.blit(background, (0, 0))
 
