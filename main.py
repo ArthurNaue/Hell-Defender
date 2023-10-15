@@ -92,9 +92,11 @@ def game():
                         placeholder = random.choice(inimigos)
                     if placeholder == inimigo1:
                         placeholder2 = 1
+                        placeholder3 = 2
                     if placeholder == inimigo2:
                         placeholder2 = 2
-                    inimigo = Inimigos(placeholder, placeholder2, inimigo_position[0], inimigo_position[1])
+                        placeholder3 = 1
+                    inimigo = Inimigos(placeholder, placeholder2, placeholder3, inimigo_position[0], inimigo_position[1])
 
         if fps <= 30:
             fps -= 1
