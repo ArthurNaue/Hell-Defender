@@ -87,16 +87,16 @@ def game():
                     posicoes_possiveis = [(-10, -10), (-10, 810), (810, -10), (810, 810), (-10, 300), (300, -10), (300, 810), (810, 300)]
                     inimigo_position = random.choice(posicoes_possiveis)
                     if pontos < 5:
-                        placeholder = inimigo1
+                        tipo = inimigo1
                     else:
-                        placeholder = random.choice(inimigos)
-                    if placeholder == inimigo1:
-                        placeholder2 = 1
-                        placeholder3 = 2
-                    if placeholder == inimigo2:
-                        placeholder2 = 2
-                        placeholder3 = 1
-                    inimigo = Inimigos(placeholder, placeholder2, placeholder3, inimigo_position[0], inimigo_position[1])
+                        tipo = random.choice(inimigos)
+                    if tipo == inimigo1:
+                        vida = 1
+                        velocidade = 2
+                    if tipo == inimigo2:
+                        vida = 2
+                        velocidade = 1
+                    inimigo = Inimigos(tipo, vida, velocidade, inimigo_position[0], inimigo_position[1])
 
         if fps <= 30:
             fps -= 1
