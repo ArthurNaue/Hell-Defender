@@ -117,13 +117,13 @@ def game():
 
             if pygame.mouse.get_pressed()[0] and inimigo.rect.collidepoint(pygame.mouse.get_pos()):
                 if cooldown < 0:
-                    inimigo.vida -= 1
-                    if inimigo.vida < 1:
+                    vida -= 1
+                    if vida < 1:
                         inimigo_spawn = False
-                        if inimigo.tipo == inimigo1:
+                        if tipo == inimigo1:
                             pontos += 1
                             timer_spawn -= 100
-                        elif inimigo.tipo == inimigo2:
+                        elif tipo == inimigo2:
                             pontos += 2
                             timer_spawn -= 200
                     cooldown = 100
