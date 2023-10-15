@@ -68,11 +68,12 @@ def game():
     inimigo2.append(pygame.image.load("inimigo2_andando2.png"))
     inimigos = [inimigo1, inimigo2]
     inimigo_spawn = False
+    timer_spawn = 3000
     destino = (270, 300)
     background = pygame.image.load("background.png")
     pontos = 0
 
-    pygame.time.set_timer(spawn, 3000)
+    pygame.time.set_timer(spawn, timer_spawn)
 
     while running:
         for event in pygame.event.get():
@@ -106,6 +107,7 @@ def game():
             if pygame.mouse.get_pressed()[0] and inimigo.rect.collidepoint(pygame.mouse.get_pos()):
                 inimigo_spawn = False
                 pontos += 1
+                timer_spawn -= 100
             
             if inimigo.rect.colliderect(castelo_rect):
                 pygame.quit()
