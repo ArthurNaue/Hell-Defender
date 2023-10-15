@@ -1,10 +1,11 @@
 import pygame
 
 class Inimigos:
-    def __init__(self, tipo, x, y):
+    def __init__(self, tipo, vida, x, y):
         self.tipo = tipo
         self.x = x
         self.y = y
+        self.vida = vida
         self.pos = pygame.Vector2(self.x, self.y)
         self.rect = tipo[0].get_rect()
 

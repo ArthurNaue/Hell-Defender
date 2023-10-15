@@ -72,6 +72,7 @@ def game():
     destino = (270, 300)
     background = pygame.image.load("background.png")
     pontos = 0
+    cooldown = 100
 
     pygame.time.set_timer(spawn, timer_spawn)
 
@@ -85,7 +86,12 @@ def game():
                     inimigo_spawn = True
                     posicoes_possiveis = [(-10, -10), (-10, 810), (810, -10), (810, 810), (-10, 300), (300, -10), (300, 810), (810, 300)]
                     inimigo_position = random.choice(posicoes_possiveis)
-                    inimigo = Inimigos(random.choice(inimigos), inimigo_position[0], inimigo_position[1])
+                    placeholder = random.choice(inimigos)
+                    if placeholder == inimigo1:
+                        placeholder2 = 1
+                    if placeholder == inimigo2:
+                        placeholder2 = 2
+                    inimigo = Inimigos(placeholder, placeholder2, inimigo_position[0], inimigo_position[1])
 
         if fps <= 30:
             fps -= 1
@@ -105,15 +111,25 @@ def game():
             inimigo.seguir(destino)
 
             if pygame.mouse.get_pressed()[0] and inimigo.rect.collidepoint(pygame.mouse.get_pos()):
-                inimigo_spawn = False
-                pontos += 1
-                timer_spawn -= 100
-            
+                if cooldown < 0:
+                    inimigo.vida -= 1
+                    if inimigo.vida < 1:
+                        inimigo_spawn = False
+                        if inimigo.tipo == inimigo1:
+                            pontos += 1
+                            timer_spawn -= 100
+                        elif inimigo.tipo == inimigo2:
+                            pontos += 2
+                            timer_spawn -= 200
+                    cooldown = 100
+
             if inimigo.rect.colliderect(castelo_rect):
                 pygame.quit()
                 sys.exit()
         
         draw_text(str(pontos), pygame.font.Font(None, 30), 560, 20)
+
+        cooldown -= 1
 
         pygame.display.update()
 
