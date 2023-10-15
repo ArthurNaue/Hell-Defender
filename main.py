@@ -49,10 +49,9 @@ def game():
     screen.fill(black)
     running =  True
     castelo = pygame.image.load("castelo.png")
-    castelo_rect = castelo.get_rect()
+    castelo_rect = pygame.Rect(275, 275, 50, 50)
     castelo_x = 236
     castelo_y = 236
-    castelo_rect.topleft = (castelo_x, castelo_y)
     clock = pygame.time.Clock()
     spawn = pygame.USEREVENT + 1
     fps = 20
