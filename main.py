@@ -63,6 +63,10 @@ def game():
     inimigo1 = []
     inimigo1.append(pygame.image.load("inimigo1_andando1.png"))
     inimigo1.append(pygame.image.load("inimigo1_andando2.png"))
+    inimigo2 = []
+    inimigo2.append(pygame.image.load("inimigo2_andando1.png"))
+    inimigo2.append(pygame.image.load("inimigo2_andando2.png"))
+    inimigos = [inimigo1, inimigo2]
     inimigo_spawn = False
     destino = (270, 300)
     background = pygame.image.load("background.png")
@@ -80,7 +84,7 @@ def game():
                     inimigo_spawn = True
                     posicoes_possiveis = [(-10, -10), (-10, 810), (810, -10), (810, 810), (-10, 300), (300, -10), (300, 810), (810, 300)]
                     inimigo_position = random.choice(posicoes_possiveis)
-                    inimigo = Inimigos(inimigo1, inimigo_position[0], inimigo_position[1])
+                    inimigo = Inimigos(random.choice(inimigos), inimigo_position[0], inimigo_position[1])
 
         if fps <= 30:
             fps -= 1
