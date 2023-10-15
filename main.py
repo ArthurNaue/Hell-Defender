@@ -9,6 +9,10 @@ branco = (255, 255, 255)
 def __init__():
     main_menu()
 
+def draw_text(text, font, x, y):
+    img = font.render(text, True, (0, 0, 0))
+    screen.blit(img, (x, y))
+
 def main_menu():
     running = True
     pygame.display.set_caption("MAIN MENU")
@@ -62,6 +66,7 @@ def game():
     inimigo_spawn = False
     destino = (270, 300)
     background = pygame.image.load("background.png")
+    pontos = 0
 
     pygame.time.set_timer(spawn, 3000)
 
@@ -96,10 +101,13 @@ def game():
 
             if pygame.mouse.get_pressed()[0] and inimigo.rect.collidepoint(pygame.mouse.get_pos()):
                 inimigo_spawn = False
+                pontos += 1
             
             if inimigo.rect.colliderect(castelo_rect):
                 pygame.quit()
                 sys.exit()
+        
+        draw_text(str(pontos), pygame.font.Font(None, 30), 560, 20)
 
         pygame.display.update()
 
