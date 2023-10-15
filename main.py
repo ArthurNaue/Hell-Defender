@@ -55,9 +55,10 @@ def game():
     castelo_rect.topleft = (castelo_x, castelo_y)
     clock = pygame.time.Clock()
     spawn = pygame.USEREVENT + 1
-    inimigo1 = pygame.image.load("player_down2.png")
+    inimigo1 = pygame.image.load("inimigo1.png")
     inimigo_spawn = False
     destino = (270, 300)
+    background = pygame.image.load("background.png")
 
     pygame.time.set_timer(spawn, 3000)
 
@@ -73,7 +74,7 @@ def game():
                     inimigo_y = random.randint(0, 800)
                     inimigo = Inimigos(inimigo1, inimigo_x, inimigo_y)
 
-        screen.fill((0, 0, 0))
+        screen.blit(background, (0, 0))
 
         screen.blit(castelo, (castelo_x, castelo_y))
 
