@@ -65,29 +65,29 @@ def game():
     spawn = pygame.USEREVENT + 1
     fps = 20
     indexImg = 0
-    inimigo1 = []
-    inimigo1.append(pygame.image.load("Images/inimigo1_andando1.png"))
-    inimigo1.append(pygame.image.load("Images/inimigo1_andando2.png"))
-    inimigo2 = []
-    inimigo2.append(pygame.image.load("Images/inimigo2_andando1.png"))
-    inimigo2.append(pygame.image.load("Images/inimigo2_andando2.png"))
-    inimigo3 = []
-    inimigo3.append(pygame.image.load("Images/inimigo3_andando1.png"))
-    inimigo3.append(pygame.image.load("Images/inimigo3_andando1.png"))
+    esqueleto = []
+    esqueleto.append(pygame.image.load("Images/esqueleto_andando1.png"))
+    esqueleto.append(pygame.image.load("Images/esqueleto_andando2.png"))
+    ceifador = []
+    ceifador.append(pygame.image.load("Images/ceifador_andando1.png"))
+    ceifador.append(pygame.image.load("Images/ceifador_andando2.png"))
+    aranha = []
+    aranha.append(pygame.image.load("Images/aranha_andando1.png"))
+    aranha.append(pygame.image.load("Images/aranha_andando1.png"))
     inimigo_spawn = False
-    lista_inimigos1 = [inimigo1, inimigo2]
-    lista_inimigos2 = [inimigo1, inimigo2, inimigo3]
+    lista_inimigos1 = [esqueleto, ceifador]
+    lista_inimigos2 = [esqueleto, ceifador, aranha]
     timer_spawn = 3000
     destino = (270, 300)
     background = pygame.image.load("Images/background.png")
     pontos = 0
     ataque = pygame.image.load("Images/ataque.png")
-    cooldown = 100
+    cooldown = 60
 
     pygame.time.set_timer(spawn, timer_spawn)
 
     while running:
-        multiplicador_velocidade = 1 + (pontos * 0.002)
+        multiplicador_velocidade = 1 + (pontos * 0.00005)
 
         if fps <= 30:
             fps -= 1
@@ -112,16 +112,16 @@ def game():
                     vida -= 1
                     if vida < 1:
                         inimigo_spawn = False
-                        if tipo == inimigo1:
+                        if tipo == esqueleto:
                             pontos += 1
                             timer_spawn -= 100
-                        elif tipo == inimigo2:
+                        elif tipo == ceifador:
                             pontos += 2
                             timer_spawn -= 200
-                        elif tipo == inimigo3:
+                        elif tipo == aranha:
                             pontos += 2
                             timer_spawn -= 200
-                    cooldown = 100
+                    cooldown = 60
 
             if inimigo.rect.colliderect(castelo_rect):
                 pygame.quit()
@@ -132,7 +132,6 @@ def game():
 
         if cooldown < 1:
             cooldown = 1
-
         cooldown -= 1
 
         for event in pygame.event.get():
@@ -145,21 +144,21 @@ def game():
                     posicoes_possiveis = [(-10, -10), (-10, 810), (810, -10), (810, 810), (-10, 300), (300, -10), (300, 810), (810, 300)]
                     inimigo_position = random.choice(posicoes_possiveis)
                     if pontos < 5:
-                        tipo = inimigo1
+                        tipo = esqueleto
                     elif pontos < 10:
                         tipo = random.choice(lista_inimigos1)
                     elif pontos >= 10:
                         tipo = random.choice(lista_inimigos2)
-                    if tipo == inimigo1:
+                    if tipo == esqueleto:
                         vida = 1
                         if pontos == 0:
                             velocidade = 2
                         else:
                             velocidade = 2 * multiplicador_velocidade
-                    if tipo == inimigo2:
+                    if tipo == ceifador:
                         vida = 2
                         velocidade = 2 * multiplicador_velocidade
-                    if tipo == inimigo3:
+                    if tipo == aranha:
                         vida = 1
                         velocidade = 3 * multiplicador_velocidade
                     inimigo = Inimigos(tipo, vida, velocidade, inimigo_position[0], inimigo_position[1])
