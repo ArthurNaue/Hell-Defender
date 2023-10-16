@@ -1,5 +1,4 @@
 import pygame
-
 class Inimigos:
     def __init__(self, tipo, vida, velocidade, x, y):
         self.tipo = tipo

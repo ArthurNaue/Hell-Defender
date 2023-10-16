@@ -102,16 +102,18 @@ def game():
                         tipo = random.choice(lista_inimigos1)
                     elif pontos >= 10:
                         tipo = random.choice(lista_inimigos2)
-
                     if tipo == inimigo1:
                         vida = 1
-                        velocidade = 2
+                        if pontos == 0:
+                            velocidade = 2
+                        else:
+                            velocidade = 2 * multiplicador_velocidade
                     if tipo == inimigo2:
                         vida = 2
-                        velocidade = 1
+                        velocidade = 2 * multiplicador_velocidade
                     if tipo == inimigo3:
                         vida = 1
-                        velocidade = 3
+                        velocidade = 3 * multiplicador_velocidade
                     inimigo = Inimigos(tipo, vida, velocidade, inimigo_position[0], inimigo_position[1])
 
         if fps <= 30:
@@ -157,6 +159,9 @@ def game():
 
         if cooldown < 1:
             cooldown = 1
+
+        multiplicador_velocidade = 1 + (pontos * 0.002)
+        print(multiplicador_velocidade)
 
         cooldown -= 1
 
