@@ -77,6 +77,7 @@ def game():
     destino = (270, 300)
     background = pygame.image.load("Images/background.png")
     pontos = 0
+    ataque = pygame.image.load("Images/ataque.png")
     cooldown = 100
 
     pygame.time.set_timer(spawn, timer_spawn)
@@ -122,6 +123,7 @@ def game():
 
             if pygame.mouse.get_pressed()[0] and inimigo.rect.collidepoint(pygame.mouse.get_pos()):
                 if cooldown == 0:
+                    screen.blit(ataque, inimigo.pos)
                     vida -= 1
                     if vida < 1:
                         inimigo_spawn = False
