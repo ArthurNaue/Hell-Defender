@@ -30,11 +30,6 @@ def main_menu():
     cor = (186, 80, 68)
 
     while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
         if pygame.mouse.get_pressed()[0] and botao1.collidepoint(pygame.mouse.get_pos()):
             game()
         if pygame.mouse.get_pressed()[0] and botao2.collidepoint(pygame.mouse.get_pos()):
@@ -49,6 +44,11 @@ def main_menu():
         screen.blit(texto2_surface, texto2_rect)
 
         draw_text("CASTLE", pygame.font.Font(None, 30), 260, 200)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
         pygame.display.update()
 
@@ -87,34 +87,7 @@ def game():
     pygame.time.set_timer(spawn, timer_spawn)
 
     while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == spawn:
-                if inimigo_spawn == False:
-                    inimigo_spawn = True
-                    posicoes_possiveis = [(-10, -10), (-10, 810), (810, -10), (810, 810), (-10, 300), (300, -10), (300, 810), (810, 300)]
-                    inimigo_position = random.choice(posicoes_possiveis)
-                    if pontos < 5:
-                        tipo = inimigo1
-                    elif pontos < 10:
-                        tipo = random.choice(lista_inimigos1)
-                    elif pontos >= 10:
-                        tipo = random.choice(lista_inimigos2)
-                    if tipo == inimigo1:
-                        vida = 1
-                        if pontos == 0:
-                            velocidade = 2
-                        else:
-                            velocidade = 2 * multiplicador_velocidade
-                    if tipo == inimigo2:
-                        vida = 2
-                        velocidade = 2 * multiplicador_velocidade
-                    if tipo == inimigo3:
-                        vida = 1
-                        velocidade = 3 * multiplicador_velocidade
-                    inimigo = Inimigos(tipo, vida, velocidade, inimigo_position[0], inimigo_position[1])
+        multiplicador_velocidade = 1 + (pontos * 0.002)
 
         if fps <= 30:
             fps -= 1
@@ -160,10 +133,36 @@ def game():
         if cooldown < 1:
             cooldown = 1
 
-        multiplicador_velocidade = 1 + (pontos * 0.002)
-        print(multiplicador_velocidade)
-
         cooldown -= 1
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == spawn:
+                if inimigo_spawn == False:
+                    inimigo_spawn = True
+                    posicoes_possiveis = [(-10, -10), (-10, 810), (810, -10), (810, 810), (-10, 300), (300, -10), (300, 810), (810, 300)]
+                    inimigo_position = random.choice(posicoes_possiveis)
+                    if pontos < 5:
+                        tipo = inimigo1
+                    elif pontos < 10:
+                        tipo = random.choice(lista_inimigos1)
+                    elif pontos >= 10:
+                        tipo = random.choice(lista_inimigos2)
+                    if tipo == inimigo1:
+                        vida = 1
+                        if pontos == 0:
+                            velocidade = 2
+                        else:
+                            velocidade = 2 * multiplicador_velocidade
+                    if tipo == inimigo2:
+                        vida = 2
+                        velocidade = 2 * multiplicador_velocidade
+                    if tipo == inimigo3:
+                        vida = 1
+                        velocidade = 3 * multiplicador_velocidade
+                    inimigo = Inimigos(tipo, vida, velocidade, inimigo_position[0], inimigo_position[1])
 
         pygame.display.update()
 
