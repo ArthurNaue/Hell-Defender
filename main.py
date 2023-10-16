@@ -59,8 +59,7 @@ def game():
     running =  True
     castelo = pygame.image.load("Images/castelo.png")
     castelo_rect = pygame.Rect(275, 275, 50, 50)
-    castelo_x = 236
-    castelo_y = 236
+    castelo_pos = 236
     clock = pygame.time.Clock()
     spawn = pygame.USEREVENT + 1
     fps = 20
@@ -77,17 +76,16 @@ def game():
     inimigo_spawn = False
     lista_inimigos1 = [esqueleto, ceifador]
     lista_inimigos2 = [esqueleto, ceifador, aranha]
-    timer_spawn = 3000
     destino = (270, 300)
     background = pygame.image.load("Images/background.png")
     pontos = 0
     ataque = pygame.image.load("Images/ataque.png")
     cooldown = 60
 
-    pygame.time.set_timer(spawn, timer_spawn)
+    pygame.time.set_timer(spawn, 3000)
 
     while running:
-        multiplicador_velocidade = 1 + (pontos * 0.00005)
+        multiplicador_velocidade = 1 + (pontos * 0.01)
 
         if fps <= 30:
             fps -= 1
@@ -100,7 +98,7 @@ def game():
 
         screen.blit(background, (0, 0))
 
-        screen.blit(castelo, (castelo_x, castelo_y))
+        screen.blit(castelo, (castelo_pos, castelo_pos))
 
         if inimigo_spawn:
             screen.blit(inimigo.tipo[indexImg], inimigo.pos)
@@ -114,13 +112,10 @@ def game():
                         inimigo_spawn = False
                         if tipo == esqueleto:
                             pontos += 1
-                            timer_spawn -= 100
                         elif tipo == ceifador:
                             pontos += 2
-                            timer_spawn -= 200
                         elif tipo == aranha:
-                            pontos += 2
-                            timer_spawn -= 200
+                            pontos += 3
                     cooldown = 60
 
             if inimigo.rect.colliderect(castelo_rect):
@@ -141,13 +136,13 @@ def game():
             elif event.type == spawn:
                 if inimigo_spawn == False:
                     inimigo_spawn = True
-                    posicoes_possiveis = [(-10, -10), (-10, 810), (810, -10), (810, 810), (-10, 300), (300, -10), (300, 810), (810, 300)]
+                    posicoes_possiveis = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
                     inimigo_position = random.choice(posicoes_possiveis)
-                    if pontos < 5:
+                    if pontos < 10:
                         tipo = esqueleto
-                    elif pontos < 10:
+                    elif pontos < 20:
                         tipo = random.choice(lista_inimigos1)
-                    elif pontos >= 10:
+                    elif pontos >= 20:
                         tipo = random.choice(lista_inimigos2)
                     if tipo == esqueleto:
                         vida = 1
@@ -157,10 +152,10 @@ def game():
                             velocidade = 2 * multiplicador_velocidade
                     if tipo == ceifador:
                         vida = 2
-                        velocidade = 2 * multiplicador_velocidade
+                        velocidade = 1 * multiplicador_velocidade
                     if tipo == aranha:
                         vida = 1
-                        velocidade = 3 * multiplicador_velocidade
+                        velocidade = 2.5 * multiplicador_velocidade
                     inimigo = Inimigos(tipo, vida, velocidade, inimigo_position[0], inimigo_position[1])
 
         pygame.display.update()
