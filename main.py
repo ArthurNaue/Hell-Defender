@@ -116,7 +116,7 @@ def game():
             inimigo.seguir(destino)
 
             if pygame.mouse.get_pressed()[0] and inimigo.rect.collidepoint(pygame.mouse.get_pos()):
-                if cooldown < 0:
+                if cooldown == 0:
                     vida -= 1
                     if vida < 1:
                         inimigo_spawn = False
@@ -132,7 +132,11 @@ def game():
                 pygame.quit()
                 sys.exit()
         
-        draw_text(str(pontos), pygame.font.Font(None, 30), 560, 20)
+        draw_text("pontos: " + str(pontos), pygame.font.Font(None, 30), 460, 20)
+        draw_text("cooldown: " + str(cooldown), pygame.font.Font(None, 30), 460, 40)
+
+        if cooldown < 1:
+            cooldown = 1
 
         cooldown -= 1
 
