@@ -71,8 +71,12 @@ def game():
     inimigo2 = []
     inimigo2.append(pygame.image.load("Images/inimigo2_andando1.png"))
     inimigo2.append(pygame.image.load("Images/inimigo2_andando2.png"))
-    inimigos = [inimigo1, inimigo2]
+    inimigo3 = []
+    inimigo3.append(pygame.image.load("Images/inimigo3_andando1.png"))
+    inimigo3.append(pygame.image.load("Images/inimigo3_andando1.png"))
     inimigo_spawn = False
+    lista_inimigos1 = [inimigo1, inimigo2]
+    lista_inimigos2 = [inimigo1, inimigo2, inimigo3]
     timer_spawn = 3000
     destino = (270, 300)
     background = pygame.image.load("Images/background.png")
@@ -94,14 +98,20 @@ def game():
                     inimigo_position = random.choice(posicoes_possiveis)
                     if pontos < 5:
                         tipo = inimigo1
-                    else:
-                        tipo = random.choice(inimigos)
+                    elif pontos < 10:
+                        tipo = random.choice(lista_inimigos1)
+                    elif pontos >= 10:
+                        tipo = random.choice(lista_inimigos2)
+
                     if tipo == inimigo1:
                         vida = 1
                         velocidade = 2
                     if tipo == inimigo2:
                         vida = 2
                         velocidade = 1
+                    if tipo == inimigo3:
+                        vida = 1
+                        velocidade = 3
                     inimigo = Inimigos(tipo, vida, velocidade, inimigo_position[0], inimigo_position[1])
 
         if fps <= 30:
@@ -131,6 +141,9 @@ def game():
                             pontos += 1
                             timer_spawn -= 100
                         elif tipo == inimigo2:
+                            pontos += 2
+                            timer_spawn -= 200
+                        elif tipo == inimigo3:
                             pontos += 2
                             timer_spawn -= 200
                     cooldown = 100
