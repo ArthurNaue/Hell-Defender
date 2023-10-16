@@ -57,7 +57,7 @@ def game():
     black = (0, 0, 0)
     screen.fill(black)
     running =  True
-    castelo = pygame.image.load("castelo.png")
+    castelo = pygame.image.load("Images/castelo.png")
     castelo_rect = pygame.Rect(275, 275, 50, 50)
     castelo_x = 236
     castelo_y = 236
@@ -66,16 +66,16 @@ def game():
     fps = 20
     indexImg = 0
     inimigo1 = []
-    inimigo1.append(pygame.image.load("inimigo1_andando1.png"))
-    inimigo1.append(pygame.image.load("inimigo1_andando2.png"))
+    inimigo1.append(pygame.image.load("Images/inimigo1_andando1.png"))
+    inimigo1.append(pygame.image.load("Images/inimigo1_andando2.png"))
     inimigo2 = []
-    inimigo2.append(pygame.image.load("inimigo2_andando1.png"))
-    inimigo2.append(pygame.image.load("inimigo2_andando2.png"))
+    inimigo2.append(pygame.image.load("Images/inimigo2_andando1.png"))
+    inimigo2.append(pygame.image.load("Images/inimigo2_andando2.png"))
     inimigos = [inimigo1, inimigo2]
     inimigo_spawn = False
     timer_spawn = 3000
     destino = (270, 300)
-    background = pygame.image.load("background.png")
+    background = pygame.image.load("Images/background.png")
     pontos = 0
     cooldown = 100
 
