@@ -27,6 +27,7 @@ def main_menu():
     texto2_surface = font.render(texto2, True, (0, 0, 0))
     texto2_rect = texto2_surface.get_rect()
     texto2_rect.center =  botao2.center
+    cor = (186, 80, 68)
 
     while running:
         for event in pygame.event.get():
@@ -40,10 +41,14 @@ def main_menu():
             pygame.quit()
             sys.exit()
 
+        screen.fill(cor)
+
         pygame.draw.rect(screen, (branco), botao1)
         pygame.draw.rect(screen, (branco), botao2)
         screen.blit(texto1_surface, texto1_rect)
         screen.blit(texto2_surface, texto2_rect)
+
+        draw_text("CASTLE", pygame.font.Font(None, 30), 260, 200)
 
         pygame.display.update()
 
