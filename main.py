@@ -72,7 +72,7 @@ def game():
     ceifador.append(pygame.image.load("Images/ceifador_andando2.png"))
     aranha = []
     aranha.append(pygame.image.load("Images/aranha_andando1.png"))
-    aranha.append(pygame.image.load("Images/aranha_andando1.png"))
+    aranha.append(pygame.image.load("Images/aranha_andando2.png"))
     inimigo_spawn = False
     lista_inimigos1 = [esqueleto, ceifador]
     lista_inimigos2 = [esqueleto, ceifador, aranha]
