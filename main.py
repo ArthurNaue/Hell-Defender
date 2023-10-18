@@ -5,6 +5,7 @@ pygame.init()
 
 screen = pygame.display.set_mode((600, 600))
 branco = (255, 255, 255)
+pygame.mixer.init()
 
 def __init__():
     main_menu()
@@ -83,6 +84,7 @@ def game():
     pontos = 0
     ataque = pygame.image.load("Images/ataque.png")
     cooldown = 60
+    explosao = pygame.mixer.Sound("Sounds/explosion.wav")
 
     pygame.time.set_timer(spawn, 3000)
 
@@ -110,6 +112,7 @@ def game():
                 if cooldown == 0:
                     screen.blit(ataque, inimigo.pos)
                     vida -= 1
+                    explosao.play()
                     if vida < 1:
                         inimigo_spawn = False
                         if tipo == esqueleto:
