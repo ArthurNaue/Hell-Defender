@@ -4,6 +4,7 @@ from inimigos import Inimigos
 pygame.init()
 
 screen = pygame.display.set_mode((600, 600))
+pygame.display.set_caption("HELL DEFENDER")
 branco = (255, 255, 255)
 pygame.mixer.init()
 musica = pygame.mixer.music.load("Sounds/musica.wav")
@@ -22,7 +23,6 @@ def sair():
 
 def main_menu():
     running = True
-    pygame.display.set_caption("HELL DEFENDER")
     botao1 = pygame.Rect(250, 280, 100, 50)
     botao2 = pygame.Rect(250, 360, 100, 50)
     font = pygame.font.Font(None, 36)
@@ -58,7 +58,6 @@ def main_menu():
         pygame.display.update()
 
 def game():
-    pygame.display.set_caption("GAME")
     black = (0, 0, 0)
     screen.fill(black)
     running =  True
