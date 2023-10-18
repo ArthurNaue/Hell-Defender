@@ -94,7 +94,7 @@ def game():
     fogo3 = ((random.randint(32, 568)), (random.randint(32, 568)))
     fogo4 = ((random.randint(32, 568)), (random.randint(32, 568)))
     numero_fogos = random.randint(1, 4)
-    pontos_boss = 0
+    pontos_boss = 30
     boss = False
     boss_rect = ceifador[0].get_rect()
     boss_vida = 5
@@ -133,7 +133,7 @@ def game():
         screen.blit(castelo, (castelo_pos, castelo_pos))
 
         if pontos >= pontos_boss:
-            pontos_boss = 20
+            pontos_boss = pontos_boss * 2
             boss = True
             posicoes_possiveis2 = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
             boss_pos = pygame.Vector2(random.choice(posicoes_possiveis2))
@@ -164,13 +164,13 @@ def game():
             boss_rect.topleft = boss_pos
 
             if boss_pos[0] < destino[0]:
-                boss_pos[0] += 0.4
+                boss_pos[0] += 0.3
             if boss_pos[0] > destino[0]:
-                boss_pos[0] -= 0.4
+                boss_pos[0] -= 0.3
             if boss_pos[1] < destino[1]:
-                boss_pos[1] += 0.4
+                boss_pos[1] += 0.3
             if boss_pos[1] > destino[1]:
-                boss_pos[1] -= 0.4
+                boss_pos[1] -= 0.3
 
             if pygame.mouse.get_pressed()[0] and boss_rect.collidepoint(pygame.mouse.get_pos()):
                 if cooldown == 0:
@@ -181,6 +181,8 @@ def game():
                     cooldown = 60
 
             screen.blit(ceifador[indexImg], boss_pos)
+            draw_text("BOSS", pygame.font.Font(None, 40), 260, 70)
+            draw_text(str(boss_vida), pygame.font.Font(None,50), 290, 100)
 
         draw_text("pontos: " + str(pontos), pygame.font.Font(None, 30), 460, 20)
         draw_text("cooldown: " + str(cooldown), pygame.font.Font(None, 30), 460, 40)
