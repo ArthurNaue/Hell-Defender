@@ -77,12 +77,15 @@ def game():
     aranha = []
     aranha.append(pygame.image.load("Images/aranha1.png"))
     aranha.append(pygame.image.load("Images/aranha2.png"))
+    fantasma = []
+    fantasma.append(pygame.image.load("Images/fantasma1.png"))
+    fantasma.append(pygame.image.load("Images/fantasma2.png"))
     fogo = []
     fogo.append(pygame.image.load("Images/fogo1.png"))
     fogo.append(pygame.image.load("Images/fogo2.png"))
     inimigo_spawn = False
-    lista_inimigos1 = [esqueleto, ceifador]
-    lista_inimigos2 = [esqueleto, ceifador, aranha]
+    lista_inimigos1 = [esqueleto, fantasma]
+    lista_inimigos2 = [esqueleto, fantasma, aranha]
     destino = (270, 300)
     background = pygame.image.load("Images/background.png")
     pontos = 0
@@ -94,10 +97,9 @@ def game():
     fogo3 = ((random.randint(32, 568)), (random.randint(32, 568)))
     fogo4 = ((random.randint(32, 568)), (random.randint(32, 568)))
     numero_fogos = random.randint(1, 4)
-    pontos_boss = 30
+    pontos_boss = 15
     boss = False
     boss_rect = ceifador[0].get_rect()
-    boss_vida = 5
 
     pygame.time.set_timer(spawn, 3000)
 
@@ -135,6 +137,7 @@ def game():
         if pontos >= pontos_boss:
             pontos_boss = pontos_boss * 2
             boss = True
+            boss_vida = 5
             posicoes_possiveis2 = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
             boss_pos = pygame.Vector2(random.choice(posicoes_possiveis2))
 
@@ -148,7 +151,7 @@ def game():
                         inimigo_spawn = False
                         if tipo == esqueleto:
                             pontos += 1
-                        elif tipo == ceifador:
+                        elif tipo == fantasma:
                             pontos += 2
                         elif tipo == aranha:
                             pontos += 3
@@ -164,13 +167,13 @@ def game():
             boss_rect.topleft = boss_pos
 
             if boss_pos[0] < destino[0]:
-                boss_pos[0] += 0.3
+                boss_pos[0] += 0.35
             if boss_pos[0] > destino[0]:
-                boss_pos[0] -= 0.3
+                boss_pos[0] -= 0.35
             if boss_pos[1] < destino[1]:
-                boss_pos[1] += 0.3
+                boss_pos[1] += 0.35
             if boss_pos[1] > destino[1]:
-                boss_pos[1] -= 0.3
+                boss_pos[1] -= 0.35
 
             if pygame.mouse.get_pressed()[0] and boss_rect.collidepoint(pygame.mouse.get_pos()):
                 if cooldown == 0:
@@ -211,7 +214,7 @@ def game():
                             velocidade = 2
                         else:
                             velocidade = 2 * multiplicador_velocidade
-                    if tipo == ceifador:
+                    if tipo == fantasma:
                         vida = 2
                         velocidade = 1 * multiplicador_velocidade
                     if tipo == aranha:
