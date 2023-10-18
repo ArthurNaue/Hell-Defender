@@ -5,6 +5,7 @@ pygame.init()
 
 screen = pygame.display.set_mode((600, 600))
 pygame.display.set_caption("HELL DEFENDER")
+pygame.display.set_icon(pygame.image.load("Images/icon.ico"))
 branco = (255, 255, 255)
 pygame.mixer.init()
 musica = pygame.mixer.music.load("Sounds/musica.wav")
