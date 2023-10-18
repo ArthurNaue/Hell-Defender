@@ -13,6 +13,10 @@ def draw_text(text, font, x, y):
     img = font.render(text, True, (0, 0, 0))
     screen.blit(img, (x, y))
 
+def sair():
+    pygame.quit()
+    sys.exit()
+
 def main_menu():
     running = True
     pygame.display.set_caption("MAIN MENU")
@@ -33,8 +37,7 @@ def main_menu():
         if pygame.mouse.get_pressed()[0] and botao1.collidepoint(pygame.mouse.get_pos()):
             game()
         if pygame.mouse.get_pressed()[0] and botao2.collidepoint(pygame.mouse.get_pos()):
-            pygame.quit()
-            sys.exit()
+            sair()
 
         screen.fill(cor)
 
@@ -47,8 +50,7 @@ def main_menu():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                sair()
 
         pygame.display.update()
 
@@ -119,8 +121,7 @@ def game():
                     cooldown = 60
 
             if inimigo.rect.colliderect(castelo_rect):
-                pygame.quit()
-                sys.exit()
+                sair()
         
         draw_text("pontos: " + str(pontos), pygame.font.Font(None, 30), 460, 20)
         draw_text("cooldown: " + str(cooldown), pygame.font.Font(None, 30), 460, 40)
@@ -131,8 +132,7 @@ def game():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                sair()
             elif event.type == spawn:
                 if inimigo_spawn == False:
                     inimigo_spawn = True
