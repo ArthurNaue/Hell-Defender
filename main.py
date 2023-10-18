@@ -69,14 +69,14 @@ def game():
     fps = 20
     indexImg = 0
     esqueleto = []
-    esqueleto.append(pygame.image.load("Images/esqueleto_andando1.png"))
-    esqueleto.append(pygame.image.load("Images/esqueleto_andando2.png"))
+    esqueleto.append(pygame.image.load("Images/esqueleto1.png"))
+    esqueleto.append(pygame.image.load("Images/esqueleto2.png"))
     ceifador = []
-    ceifador.append(pygame.image.load("Images/ceifador_andando1.png"))
-    ceifador.append(pygame.image.load("Images/ceifador_andando2.png"))
+    ceifador.append(pygame.image.load("Images/ceifador1.png"))
+    ceifador.append(pygame.image.load("Images/ceifador2.png"))
     aranha = []
-    aranha.append(pygame.image.load("Images/aranha_andando1.png"))
-    aranha.append(pygame.image.load("Images/aranha_andando2.png"))
+    aranha.append(pygame.image.load("Images/aranha1.png"))
+    aranha.append(pygame.image.load("Images/aranha2.png"))
     fogo = []
     fogo.append(pygame.image.load("Images/fogo1.png"))
     fogo.append(pygame.image.load("Images/fogo2.png"))
