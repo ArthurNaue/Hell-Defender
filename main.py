@@ -19,7 +19,7 @@ def sair():
 
 def main_menu():
     running = True
-    pygame.display.set_caption("MAIN MENU")
+    pygame.display.set_caption("HELL DEFENDER")
     botao1 = pygame.Rect(250, 280, 100, 50)
     botao2 = pygame.Rect(250, 360, 100, 50)
     font = pygame.font.Font(None, 36)
@@ -46,7 +46,7 @@ def main_menu():
         screen.blit(texto1_surface, texto1_rect)
         screen.blit(texto2_surface, texto2_rect)
 
-        draw_text("CASTLE", pygame.font.Font(None, 30), 260, 200)
+        draw_text("HELL DEFENDER", pygame.font.Font(None, 30), 220, 200)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
