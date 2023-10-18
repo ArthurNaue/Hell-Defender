@@ -1,6 +1,5 @@
 import pygame, sys, random
 from inimigos import Inimigos
-from pygame import mixer
 
 pygame.init()
 
