@@ -149,9 +149,9 @@ def game():
                     explosao.play()
                     if vida < 1:
                         inimigo_spawn = False
-                        if tipo == esqueleto:
+                        if tipo == fantasma:
                             pontos += 1
-                        elif tipo == fantasma:
+                        elif tipo == esqueleto:
                             pontos += 2
                         elif tipo == aranha:
                             pontos += 3
@@ -203,18 +203,18 @@ def game():
                     posicoes_possiveis = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
                     inimigo_position = random.choice(posicoes_possiveis)
                     if pontos < 10:
-                        tipo = esqueleto
+                        tipo = fantasma
                     elif pontos < 20:
                         tipo = random.choice(lista_inimigos1)
                     elif pontos >= 20:
                         tipo = random.choice(lista_inimigos2)
-                    if tipo == esqueleto:
+                    if tipo == fantasma:
                         vida = 1
                         if pontos == 0:
                             velocidade = 2
                         else:
                             velocidade = 2 * multiplicador_velocidade
-                    if tipo == fantasma:
+                    if tipo == esqueleto:
                         vida = 2
                         velocidade = 1 * multiplicador_velocidade
                     if tipo == aranha:
