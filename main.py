@@ -94,6 +94,7 @@ def game():
     fogo2 = ((random.randint(32, 568)), (random.randint(32, 568)))
     fogo3 = ((random.randint(32, 568)), (random.randint(32, 568)))
     fogo4 = ((random.randint(32, 568)), (random.randint(32, 568)))
+    numero_fogos = random.randint(1, 4)
 
     pygame.time.set_timer(spawn, 3000)
 
@@ -111,11 +112,22 @@ def game():
 
         screen.blit(background, (0, 0))
 
+        if numero_fogos == 1:
+            screen.blit(fogo[indexImg], (fogo1[0], fogo1[1]))
+        elif numero_fogos == 2:
+            screen.blit(fogo[indexImg], (fogo2[0], fogo1[1]))
+            screen.blit(fogo[indexImg], (fogo3[0], fogo2[1]))
+        elif numero_fogos == 3:
+            screen.blit(fogo[indexImg], (fogo1[0], fogo1[1]))
+            screen.blit(fogo[indexImg], (fogo2[0], fogo2[1]))
+            screen.blit(fogo[indexImg], (fogo3[0], fogo3[1]))
+        elif numero_fogos == 4:
+            screen.blit(fogo[indexImg], (fogo1[0], fogo1[1]))
+            screen.blit(fogo[indexImg], (fogo2[0], fogo2[1]))
+            screen.blit(fogo[indexImg], (fogo3[0], fogo3[1]))
+            screen.blit(fogo[indexImg], (fogo4[0], fogo4[1]))
+
         screen.blit(castelo, (castelo_pos, castelo_pos))
-        screen.blit(fogo[indexImg], (fogo1[0], fogo1[1]))
-        screen.blit(fogo[indexImg], (fogo2[0], fogo2[1]))
-        screen.blit(fogo[indexImg], (fogo3[0], fogo3[1]))
-        screen.blit(fogo[indexImg], (fogo4[0], fogo4[1]))
 
         if inimigo_spawn:
             screen.blit(inimigo.tipo[indexImg], inimigo.pos)
