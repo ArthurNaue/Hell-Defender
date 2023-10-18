@@ -94,6 +94,10 @@ def game():
     fogo3 = ((random.randint(32, 568)), (random.randint(32, 568)))
     fogo4 = ((random.randint(32, 568)), (random.randint(32, 568)))
     numero_fogos = random.randint(1, 4)
+    pontos_boss = 0
+    boss = False
+    boss_rect = ceifador[0].get_rect()
+    boss_vida = 5
 
     pygame.time.set_timer(spawn, 3000)
 
@@ -128,10 +132,13 @@ def game():
 
         screen.blit(castelo, (castelo_pos, castelo_pos))
 
-        if inimigo_spawn:
-            screen.blit(inimigo.tipo[indexImg], inimigo.pos)
-            inimigo.seguir(destino)
+        if pontos >= pontos_boss:
+            pontos_boss = 20
+            boss = True
+            posicoes_possiveis2 = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
+            boss_pos = pygame.Vector2(random.choice(posicoes_possiveis2))
 
+        if inimigo_spawn:
             if pygame.mouse.get_pressed()[0] and inimigo.rect.collidepoint(pygame.mouse.get_pos()):
                 if cooldown == 0:
                     screen.blit(ataque, inimigo.pos)
@@ -147,9 +154,34 @@ def game():
                             pontos += 3
                     cooldown = 60
 
+            screen.blit(inimigo.tipo[indexImg], inimigo.pos)
+            inimigo.seguir(destino)
+
             if inimigo.rect.colliderect(castelo_rect):
                 sair()
-        
+
+        if boss:
+            boss_rect.topleft = boss_pos
+
+            if boss_pos[0] < destino[0]:
+                boss_pos[0] += 0.4
+            if boss_pos[0] > destino[0]:
+                boss_pos[0] -= 0.4
+            if boss_pos[1] < destino[1]:
+                boss_pos[1] += 0.4
+            if boss_pos[1] > destino[1]:
+                boss_pos[1] -= 0.4
+
+            if pygame.mouse.get_pressed()[0] and boss_rect.collidepoint(pygame.mouse.get_pos()):
+                if cooldown == 0:
+                    screen.blit(ataque, boss_pos)
+                    boss_vida -= 1
+                    if boss_vida < 1:
+                        boss = False
+                    cooldown = 60
+
+            screen.blit(ceifador[indexImg], boss_pos)
+
         draw_text("pontos: " + str(pontos), pygame.font.Font(None, 30), 460, 20)
         draw_text("cooldown: " + str(cooldown), pygame.font.Font(None, 30), 460, 40)
 
