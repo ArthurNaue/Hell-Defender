@@ -1,11 +1,14 @@
 import pygame, sys, random
 from inimigos import Inimigos
+from pygame import mixer
 
 pygame.init()
 
 screen = pygame.display.set_mode((600, 600))
 branco = (255, 255, 255)
 pygame.mixer.init()
+musica = pygame.mixer.music.load("Sounds/musica.wav")
+pygame.mixer.music.play(-1)
 
 def __init__():
     main_menu()
@@ -16,7 +19,7 @@ def draw_text(text, font, x, y):
 
 def sair():
     pygame.quit()
-    sys.exit()
+    sys.exit() 
 
 def main_menu():
     running = True
