@@ -79,6 +79,9 @@ def game():
     aranha = []
     aranha.append(pygame.image.load("Images/aranha_andando1.png"))
     aranha.append(pygame.image.load("Images/aranha_andando2.png"))
+    fogo = []
+    fogo.append(pygame.image.load("Images/fogo1.png"))
+    fogo.append(pygame.image.load("Images/fogo2.png"))
     inimigo_spawn = False
     lista_inimigos1 = [esqueleto, ceifador]
     lista_inimigos2 = [esqueleto, ceifador, aranha]
@@ -106,6 +109,11 @@ def game():
         screen.blit(background, (0, 0))
 
         screen.blit(castelo, (castelo_pos, castelo_pos))
+        screen.blit(fogo[indexImg], (150, 150))
+        screen.blit(fogo[indexImg], (400, 350))
+        screen.blit(fogo[indexImg], (500, 550))
+        screen.blit(fogo[indexImg], (100, 500))
+        screen.blit(fogo[indexImg], (500, 100))
 
         if inimigo_spawn:
             screen.blit(inimigo.tipo[indexImg], inimigo.pos)
