@@ -180,6 +180,7 @@ def game():
                 if cooldown == 0:
                     screen.blit(ataque, boss_pos)
                     boss_vida -= 1
+                    explosao.play()
                     if boss_vida < 1:
                         boss = False
                     cooldown = 60
