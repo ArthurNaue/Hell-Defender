@@ -10,6 +10,7 @@ branco = (255, 255, 255)
 pygame.mixer.init()
 musica = pygame.mixer.music.load("Sounds/musica.wav")
 pygame.mixer.music.play(-1)
+background = pygame.image.load("Images/background.png")
 
 def __init__():
     main_menu()
@@ -36,6 +37,7 @@ def main_menu():
     texto2_rect = texto2_surface.get_rect()
     texto2_rect.center =  botao2.center
     cor = (186, 80, 68)
+    titulo = pygame.image.load("Images/titulo.png")
 
     while running:
         if pygame.mouse.get_pressed()[0] and botao1.collidepoint(pygame.mouse.get_pos()):
@@ -43,14 +45,14 @@ def main_menu():
         if pygame.mouse.get_pressed()[0] and botao2.collidepoint(pygame.mouse.get_pos()):
             sair()
 
-        screen.fill(cor)
+        screen.blit(background, (0,0))
 
         pygame.draw.rect(screen, (branco), botao1)
         pygame.draw.rect(screen, (branco), botao2)
         screen.blit(texto1_surface, texto1_rect)
         screen.blit(texto2_surface, texto2_rect)
 
-        draw_text("HELL DEFENDER", pygame.font.Font(None, 30), 220, 200)
+        screen.blit(titulo, (175, 50))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -88,7 +90,6 @@ def game():
     lista_inimigos1 = [esqueleto, fantasma]
     lista_inimigos2 = [esqueleto, fantasma, aranha]
     destino = (270, 300)
-    background = pygame.image.load("Images/background.png")
     pontos = 0
     ataque = pygame.image.load("Images/ataque.png")
     cooldown = 60
