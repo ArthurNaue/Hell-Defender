@@ -209,7 +209,7 @@ def game():
                             boss_velocidade = 0.35
                         if contagem_boss == 2:
                             boss_tipo = olho
-                            boss_vida = 10
+                            boss_vida = 8
                             boss_velocidade = 0.08
                         if contagem_boss >= 3:
                             boss_tipo = random.choice(lista_boss)
@@ -217,7 +217,7 @@ def game():
                                 boss_vida = 5
                                 boss_velocidade = 0.35
                             if boss_tipo == olho:
-                                boss_vida = 10
+                                boss_vida = 8
                                 boss_velocidade = 0.08
                         boss = Inimigos(boss_tipo, boss_vida, boss_velocidade, boss_pos[0], boss_pos[1])
                         boss.seguir(destino)
@@ -247,8 +247,15 @@ def game():
                     cooldown = 60
 
             screen.blit(boss.tipo[indexImg], boss_pos)
-            draw_text("BOSS", pygame.font.Font(None, 40), 260, 70)
-            draw_text(str(boss_vida), pygame.font.Font(None,50), 290, 100)
+            if boss_tipo == ceifador:
+                draw_text("REAPER", pygame.font.Font(None, 40), 240, 70)
+                draw_text(str(boss_vida), pygame.font.Font(None,50), 290, 100)
+            elif boss_tipo == olho:
+                draw_text("EYE OF TRUTH", pygame.font.Font(None, 40), 195, 70)
+                draw_text(str(boss_vida), pygame.font.Font(None,50), 290, 100)
+
+            if boss_rect.colliderect(castelo_rect):
+                sair()
 
         pygame.display.update()
 
