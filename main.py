@@ -99,9 +99,8 @@ def game():
     fogo3 = ((random.randint(32, 568)), (random.randint(32, 568)))
     fogo4 = ((random.randint(32, 568)), (random.randint(32, 568)))
     numero_fogos = random.randint(1, 4)
-    pontos_boss = 3
-    boss = False
-    boss_rect = ceifador[0].get_rect()
+    pontos_boss = 15
+    boss_spawn = False
 
     pygame.time.set_timer(spawn, 3000)
 
@@ -158,30 +157,6 @@ def game():
             if inimigo.rect.colliderect(castelo_rect):
                 sair()
 
-        if boss:
-            boss_rect.topleft = boss_pos
-
-            if boss_pos[0] < destino[0]:
-                boss_pos[0] += 0.35
-            if boss_pos[0] > destino[0]:
-                boss_pos[0] -= 0.35
-            if boss_pos[1] < destino[1]:
-                boss_pos[1] += 0.35
-            if boss_pos[1] > destino[1]:
-                boss_pos[1] -= 0.35
-
-            if pygame.mouse.get_pressed()[0] and boss_rect.collidepoint(pygame.mouse.get_pos()):
-                if cooldown == 0:
-                    screen.blit(ataque, boss_pos)
-                    boss_vida -= 1
-                    explosao.play()
-                    if boss_vida < 1:
-                        boss = False
-                    cooldown = 60
-
-            screen.blit(ceifador[indexImg], boss_pos)
-            draw_text("BOSS", pygame.font.Font(None, 40), 260, 70)
-            draw_text(str(boss_vida), pygame.font.Font(None,50), 290, 100)
 
         draw_text("pontos: " + str(pontos), pygame.font.Font(None, 30), 460, 20)
         draw_text("cooldown: " + str(cooldown), pygame.font.Font(None, 30), 460, 40)
@@ -220,13 +195,39 @@ def game():
                 
                 if pontos >= pontos_boss:
                     pontos_boss = pontos_boss * 2
-                    if boss == False:
-                        boss = True
+                    if boss_spawn == False:
+                        boss_spawn = True
                         posicoes_possiveis2 = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
                         boss_vida = 5
                         boss_pos = pygame.Vector2(random.choice(posicoes_possiveis2))
                         boss = Inimigos(ceifador, boss_vida, 0.35, boss_pos[0], boss_pos[1])
                         boss.seguir(destino)
+
+        if boss_spawn:
+            boss_rect = boss.tipo[0].get_rect()
+            boss_rect.topleft = boss_pos
+
+            if boss_pos[0] < destino[0]:
+                boss_pos[0] += 0.35
+            if boss_pos[0] > destino[0]:
+                boss_pos[0] -= 0.35
+            if boss_pos[1] < destino[1]:
+                boss_pos[1] += 0.35
+            if boss_pos[1] > destino[1]:
+                boss_pos[1] -= 0.35
+
+            if pygame.mouse.get_pressed()[0] and boss_rect.collidepoint(pygame.mouse.get_pos()):
+                if cooldown == 0:
+                    screen.blit(ataque, boss_pos)
+                    boss_vida -= 1
+                    explosao.play()
+                    if boss_vida < 1:
+                        boss_spawn = False
+                    cooldown = 60
+
+            screen.blit(boss.tipo[indexImg], boss_pos)
+            draw_text("BOSS", pygame.font.Font(None, 40), 260, 70)
+            draw_text(str(boss_vida), pygame.font.Font(None,50), 290, 100)
 
         pygame.display.update()
 
