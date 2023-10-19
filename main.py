@@ -99,7 +99,7 @@ def game():
     fogo3 = ((random.randint(32, 568)), (random.randint(32, 568)))
     fogo4 = ((random.randint(32, 568)), (random.randint(32, 568)))
     numero_fogos = random.randint(1, 4)
-    pontos_boss = 15
+    pontos_boss = 3
     boss = False
     boss_rect = ceifador[0].get_rect()
 
@@ -135,13 +135,6 @@ def game():
             screen.blit(fogo[indexImg], (fogo4[0], fogo4[1]))
 
         screen.blit(castelo, (castelo_pos, castelo_pos))
-
-        if pontos >= pontos_boss:
-            pontos_boss = pontos_boss * 2
-            boss = True
-            boss_vida = 5
-            posicoes_possiveis2 = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
-            boss_pos = pygame.Vector2(random.choice(posicoes_possiveis2))
 
         if inimigo_spawn:
             if pygame.mouse.get_pressed()[0] and inimigo.rect.collidepoint(pygame.mouse.get_pos()):
@@ -224,6 +217,16 @@ def game():
                         vida = 1
                         velocidade = 2.5 * multiplicador_velocidade
                     inimigo = Inimigos(tipo, vida, velocidade, inimigo_position[0], inimigo_position[1])
+                
+                if pontos >= pontos_boss:
+                    pontos_boss = pontos_boss * 2
+                    if boss == False:
+                        boss = True
+                        posicoes_possiveis2 = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
+                        boss_vida = 5
+                        boss_pos = pygame.Vector2(random.choice(posicoes_possiveis2))
+                        boss = Inimigos(ceifador, boss_vida, 0.35, boss_pos[0], boss_pos[1])
+                        boss.seguir(destino)
 
         pygame.display.update()
 
