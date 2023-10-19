@@ -27,19 +27,27 @@ def main_menu():
     running = True
     botao1 = pygame.image.load("Images/botao.png")
     botao2 = pygame.image.load("Images/botao.png")
+    botao3 = pygame.image.load("Images/botao.png")
     botao1_rect = botao1.get_rect()
     botao2_rect = botao2.get_rect()
+    botao3_rect = botao3.get_rect()
     botao1_rect.topleft = (250, 300)
     botao2_rect.topleft = (250, 400)
+    botao3_rect.topleft = (250, 500)
     font = pygame.font.Font(None, 36)
+    texto = False
     texto1 = "JOGAR"
-    texto2 = "SAIR"
+    texto2 = "HELP"
+    texto3 = "SAIR"
     texto1_surface = font.render(texto1, True, (0, 0, 0))
     texto1_rect = texto1_surface.get_rect()
     texto1_rect.center =  botao1_rect.center
     texto2_surface = font.render(texto2, True, (0, 0, 0))
     texto2_rect = texto2_surface.get_rect()
-    texto2_rect.center =  botao2_rect.center
+    texto2_rect.center = botao2_rect.center
+    texto3_surface = font.render(texto3, True, (0, 0, 0))
+    texto3_rect = texto3_surface.get_rect()
+    texto3_rect.center =  botao3_rect.center
     cor = (186, 80, 68)
     titulo = pygame.image.load("Images/titulo.png")
 
@@ -47,16 +55,25 @@ def main_menu():
         if pygame.mouse.get_pressed()[0] and botao1_rect.collidepoint(pygame.mouse.get_pos()):
             game()
         if pygame.mouse.get_pressed()[0] and botao2_rect.collidepoint(pygame.mouse.get_pos()):
+            texto = True
+        if pygame.mouse.get_pressed()[0] and botao3_rect.collidepoint(pygame.mouse.get_pos()):
             sair()
 
         screen.blit(background, (0,0))
-
         screen.blit(botao1, (250, 300))
         screen.blit(botao2, (250, 400))
+        screen.blit(botao3, (250, 500))
         screen.blit(texto1_surface, texto1_rect)
         screen.blit(texto2_surface, texto2_rect)
+        screen.blit(texto3_surface, texto3_rect)
 
         screen.blit(titulo, (50, -100))
+
+        if texto:
+            draw_text("CLICK TO KILL", pygame.font.Font(None, 30), 410, 360)
+            draw_text("+ POINTS = FASTER", pygame.font.Font(None, 30), 380, 390)
+            draw_text("THEY GET YOU", pygame.font.Font(None, 30), 410, 420)
+            draw_text("YOU DIE!", pygame.font.Font(None, 30), 440, 450)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
