@@ -86,9 +86,14 @@ def game():
     fogo = []
     fogo.append(pygame.image.load("Images/fogo1.png"))
     fogo.append(pygame.image.load("Images/fogo2.png"))
+    olho = []
+    olho.append(pygame.image.load("Images/olho1.png"))
+    olho.append(pygame.image.load("Images/olho2.png"))
     inimigo_spawn = False
     lista_inimigos1 = [esqueleto, fantasma]
     lista_inimigos2 = [esqueleto, fantasma, aranha]
+    boss_spawn = False
+    lista_boss = [ceifador, olho]
     destino = (270, 300)
     pontos = 0
     ataque = pygame.image.load("Images/ataque.png")
@@ -100,12 +105,12 @@ def game():
     fogo4 = ((random.randint(32, 568)), (random.randint(32, 568)))
     numero_fogos = random.randint(1, 4)
     pontos_boss = 15
-    boss_spawn = False
-
+    contagem_boss = 0
+    posicoes_possiveis = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
     pygame.time.set_timer(spawn, 3000)
 
     while running:
-        multiplicador_velocidade = 1 + (pontos * 0.01)
+        multiplicador_velocidade = 1 + (pontos * 0.005)
 
         if fps <= 30:
             fps -= 1
@@ -171,7 +176,6 @@ def game():
             elif event.type == spawn:
                 if inimigo_spawn == False:
                     inimigo_spawn = True
-                    posicoes_possiveis = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
                     inimigo_position = random.choice(posicoes_possiveis)
                     if pontos < 10:
                         tipo = fantasma
@@ -197,11 +201,28 @@ def game():
                     pontos_boss = pontos_boss * 2
                     if boss_spawn == False:
                         boss_spawn = True
-                        posicoes_possiveis2 = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
-                        boss_vida = 5
-                        boss_pos = pygame.Vector2(random.choice(posicoes_possiveis2))
-                        boss = Inimigos(ceifador, boss_vida, 0.35, boss_pos[0], boss_pos[1])
+                        contagem_boss += 1
+                        boss_pos = pygame.Vector2(random.choice(posicoes_possiveis))
+                        if contagem_boss == 1:
+                            boss_tipo = ceifador
+                            boss_vida = 5
+                            boss_velocidade = 0.35
+                        if contagem_boss == 2:
+                            boss_tipo = olho
+                            boss_vida = 10
+                            boss_velocidade = 0.08
+                        if contagem_boss >= 3:
+                            boss_tipo = random.choice(lista_boss)
+                            if boss_tipo == ceifador:
+                                boss_vida = 5
+                                boss_velocidade = 0.35
+                            if boss_tipo == olho:
+                                boss_vida = 10
+                                boss_velocidade = 0.08
+                        boss = Inimigos(boss_tipo, boss_vida, boss_velocidade, boss_pos[0], boss_pos[1])
                         boss.seguir(destino)
+
+
 
         if boss_spawn:
             boss_rect = boss.tipo[0].get_rect()
