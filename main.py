@@ -25,30 +25,34 @@ def sair():
 
 def main_menu():
     running = True
-    botao1 = pygame.Rect(250, 280, 100, 50)
-    botao2 = pygame.Rect(250, 360, 100, 50)
+    botao1 = pygame.image.load("Images/botao.png")
+    botao2 = pygame.image.load("Images/botao.png")
+    botao1_rect = botao1.get_rect()
+    botao2_rect = botao2.get_rect()
+    botao1_rect.topleft = (250, 300)
+    botao2_rect.topleft = (250, 400)
     font = pygame.font.Font(None, 36)
     texto1 = "JOGAR"
     texto2 = "SAIR"
     texto1_surface = font.render(texto1, True, (0, 0, 0))
     texto1_rect = texto1_surface.get_rect()
-    texto1_rect.center =  botao1.center
+    texto1_rect.center =  botao1_rect.center
     texto2_surface = font.render(texto2, True, (0, 0, 0))
     texto2_rect = texto2_surface.get_rect()
-    texto2_rect.center =  botao2.center
+    texto2_rect.center =  botao2_rect.center
     cor = (186, 80, 68)
     titulo = pygame.image.load("Images/titulo.png")
 
     while running:
-        if pygame.mouse.get_pressed()[0] and botao1.collidepoint(pygame.mouse.get_pos()):
+        if pygame.mouse.get_pressed()[0] and botao1_rect.collidepoint(pygame.mouse.get_pos()):
             game()
-        if pygame.mouse.get_pressed()[0] and botao2.collidepoint(pygame.mouse.get_pos()):
+        if pygame.mouse.get_pressed()[0] and botao2_rect.collidepoint(pygame.mouse.get_pos()):
             sair()
 
         screen.blit(background, (0,0))
 
-        pygame.draw.rect(screen, (branco), botao1)
-        pygame.draw.rect(screen, (branco), botao2)
+        screen.blit(botao1, (250, 300))
+        screen.blit(botao2, (250, 400))
         screen.blit(texto1_surface, texto1_rect)
         screen.blit(texto2_surface, texto2_rect)
 
