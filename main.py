@@ -52,7 +52,7 @@ def main_menu():
         screen.blit(texto1_surface, texto1_rect)
         screen.blit(texto2_surface, texto2_rect)
 
-        screen.blit(titulo, (175, 50))
+        screen.blit(titulo, (50, -100))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
