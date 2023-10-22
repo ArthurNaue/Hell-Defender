@@ -12,12 +12,16 @@ musica = pygame.mixer.music.load("Sounds/musica.wav")
 pygame.mixer.music.play(-1)
 background = pygame.image.load("Images/background.png")
 
-def __init__():
-    main_menu()
-
 def draw_text(text, font, x, y):
     img = font.render(text, True, (0, 0, 0))
     screen.blit(img, (x, y))
+
+def ler_high_score():
+    with open ("high score.txt", "r") as f:
+        return f.read()
+
+def __init__():
+    main_menu()
 
 def sair():
     pygame.quit()
@@ -129,7 +133,17 @@ def game():
     posicoes_possiveis = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
     pygame.time.set_timer(spawn, 3000)
 
+    try:
+        high_score = int(ler_high_score())
+    except:
+        high_score = 0
+
     while running:
+        if high_score < pontos:
+            high_score = pontos
+        with open("high score.txt", "w") as f:
+            f.write(str(high_score))
+
         multiplicador_velocidade = 1 + (pontos * 0.005)
 
         if fps <= 30:
@@ -185,6 +199,7 @@ def game():
 
         draw_text("pontos: " + str(pontos), pygame.font.Font(None, 30), 460, 20)
         draw_text("cooldown: " + str(cooldown), pygame.font.Font(None, 30), 460, 40)
+        draw_text("High Score: " + str(high_score), pygame.font.Font(None, 30), 120, 40)
 
         if cooldown < 1:
             cooldown = 1
@@ -300,6 +315,7 @@ def game_over():
     texto2_rect = texto2_surface.get_rect()
     texto2_rect.center = botao2_rect.center
     titulo = pygame.image.load("Images/game_over.png")
+    high_score = int(ler_high_score())
 
     while running:
         if pygame.mouse.get_pressed()[0] and botao1_rect.collidepoint(pygame.mouse.get_pos()):
@@ -312,8 +328,8 @@ def game_over():
         screen.blit(botao2, (250, 400))
         screen.blit(texto1_surface, texto1_rect)
         screen.blit(texto2_surface, texto2_rect)
-
         screen.blit(titulo, (40, -100))
+        draw_text("High Score: " + str(high_score), pygame.font.Font(None, 30), 50, 250)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
