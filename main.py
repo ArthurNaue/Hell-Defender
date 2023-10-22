@@ -20,9 +20,6 @@ def ler_high_score():
     with open ("high score.txt", "r") as f:
         return f.read()
 
-def __init__():
-    main_menu()
-
 def sair():
     pygame.quit()
     sys.exit() 
@@ -197,9 +194,8 @@ def game():
                 explosao.play()
                 game_over()
 
-        draw_text("pontos: " + str(pontos), pygame.font.Font(None, 30), 460, 20)
-        draw_text("cooldown: " + str(cooldown), pygame.font.Font(None, 30), 460, 40)
-        draw_text("High Score: " + str(high_score), pygame.font.Font(None, 30), 120, 40)
+        draw_text("pontos: " + str(pontos), pygame.font.Font(None, 30), 460, 560)
+        draw_text("cooldown: " + str(cooldown), pygame.font.Font(None, 30), 40, 560)
 
         if cooldown < 1:
             cooldown = 1
@@ -305,6 +301,9 @@ def game_over():
     botao2_rect = botao2.get_rect()
     botao1_rect.topleft = (250, 300)
     botao2_rect.topleft = (250, 400)
+    botao3 = pygame.image.load("Images/botao2.png")
+    botao3_rect = botao3.get_rect()
+    botao3_rect.topleft = (400, 300)
     font = pygame.font.Font(None, 36)
     texto1 = "JOGAR"
     texto2 = "SAIR"
@@ -316,6 +315,10 @@ def game_over():
     texto2_rect.center = botao2_rect.center
     titulo = pygame.image.load("Images/game_over.png")
     high_score = int(ler_high_score())
+    texto3 = str(high_score)
+    texto3_surface = font.render(texto3, True, (0, 0, 0))
+    texto3_rect = texto3_surface.get_rect()
+    texto3_rect.center = botao3_rect.center
 
     while running:
         if pygame.mouse.get_pressed()[0] and botao1_rect.collidepoint(pygame.mouse.get_pos()):
@@ -328,8 +331,11 @@ def game_over():
         screen.blit(botao2, (250, 400))
         screen.blit(texto1_surface, texto1_rect)
         screen.blit(texto2_surface, texto2_rect)
+        screen.blit(botao3, (400, 300))
         screen.blit(titulo, (40, -100))
-        draw_text("High Score: " + str(high_score), pygame.font.Font(None, 30), 50, 250)
+        draw_text("HIGH", pygame.font.Font(None, 30), 425, 310)
+        draw_text("SCORE", pygame.font.Font(None, 30), 415, 330)
+        screen.blit(texto3_surface, texto3_rect)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
