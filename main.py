@@ -38,7 +38,7 @@ def main_menu():
     font = pygame.font.Font(None, 36)
     texto = False
     texto1 = "JOGAR"
-    texto2 = "HELP"
+    texto2 = "AJUDA"
     texto3 = "SAIR"
     texto1_surface = font.render(texto1, True, (0, 0, 0))
     texto1_rect = texto1_surface.get_rect()
