@@ -50,6 +50,14 @@ def main_menu():
     texto3_rect = texto3_surface.get_rect()
     texto3_rect.center =  botao3_rect.center
     titulo = pygame.image.load("Images/titulo.png")
+    botao4 = pygame.image.load("Images/botao2.png")
+    botao4_rect = botao4.get_rect()
+    botao4_rect.topleft = (100, 350)
+    high_score = int(ler_high_score())
+    texto4 = str(high_score)
+    texto4_surface = font.render(texto4, True, (0, 0, 0))
+    texto4_rect = texto4_surface.get_rect()
+    texto4_rect.center = botao4_rect.center
 
     while running:
         if pygame.mouse.get_pressed()[0] and botao1_rect.collidepoint(pygame.mouse.get_pos()):
@@ -66,7 +74,10 @@ def main_menu():
         screen.blit(texto1_surface, texto1_rect)
         screen.blit(texto2_surface, texto2_rect)
         screen.blit(texto3_surface, texto3_rect)
-
+        screen.blit(botao4, (100, 350))
+        draw_text("HIGH", pygame.font.Font(None, 30), 125, 360)
+        draw_text("SCORE", pygame.font.Font(None, 30), 115, 380)
+        screen.blit(texto4_surface, texto4_rect)
         screen.blit(titulo, (50, -100))
 
         if texto:
