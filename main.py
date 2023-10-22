@@ -180,8 +180,8 @@ def game():
             inimigo.seguir(destino)
 
             if inimigo.rect.colliderect(castelo_rect):
+                explosao.play()
                 game_over()
-
 
         draw_text("pontos: " + str(pontos), pygame.font.Font(None, 30), 460, 20)
         draw_text("cooldown: " + str(cooldown), pygame.font.Font(None, 30), 460, 40)
@@ -275,6 +275,7 @@ def game():
                 draw_text(str(boss_vida), pygame.font.Font(None,50), 290, 100)
 
             if boss_rect.colliderect(castelo_rect):
+                explosao.play()
                 game_over()
 
         pygame.display.update()
