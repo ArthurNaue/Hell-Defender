@@ -48,7 +48,6 @@ def main_menu():
     texto3_surface = font.render(texto3, True, (0, 0, 0))
     texto3_rect = texto3_surface.get_rect()
     texto3_rect.center =  botao3_rect.center
-    cor = (186, 80, 68)
     titulo = pygame.image.load("Images/titulo.png")
 
     while running:
@@ -181,7 +180,7 @@ def game():
             inimigo.seguir(destino)
 
             if inimigo.rect.colliderect(castelo_rect):
-                sair()
+                game_over()
 
 
         draw_text("pontos: " + str(pontos), pygame.font.Font(None, 30), 460, 20)
@@ -276,10 +275,49 @@ def game():
                 draw_text(str(boss_vida), pygame.font.Font(None,50), 290, 100)
 
             if boss_rect.colliderect(castelo_rect):
-                sair()
+                game_over()
 
         pygame.display.update()
 
         clock.tick(60)
+
+def game_over():
+    running = True
+    botao1 = pygame.image.load("Images/botao.png")
+    botao2 = pygame.image.load("Images/botao.png")
+    botao1_rect = botao1.get_rect()
+    botao2_rect = botao2.get_rect()
+    botao1_rect.topleft = (250, 300)
+    botao2_rect.topleft = (250, 400)
+    font = pygame.font.Font(None, 36)
+    texto1 = "JOGAR"
+    texto2 = "SAIR"
+    texto1_surface = font.render(texto1, True, (0, 0, 0))
+    texto1_rect = texto1_surface.get_rect()
+    texto1_rect.center =  botao1_rect.center
+    texto2_surface = font.render(texto2, True, (0, 0, 0))
+    texto2_rect = texto2_surface.get_rect()
+    texto2_rect.center = botao2_rect.center
+    titulo = pygame.image.load("Images/game_over.png")
+
+    while running:
+        if pygame.mouse.get_pressed()[0] and botao1_rect.collidepoint(pygame.mouse.get_pos()):
+            game()
+        if pygame.mouse.get_pressed()[0] and botao2_rect.collidepoint(pygame.mouse.get_pos()):
+            sair()
+
+        screen.blit(background, (0,0))
+        screen.blit(botao1, (250, 300))
+        screen.blit(botao2, (250, 400))
+        screen.blit(texto1_surface, texto1_rect)
+        screen.blit(texto2_surface, texto2_rect)
+
+        screen.blit(titulo, (40, -100))
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sair()
+
+        pygame.display.update()
 
 main_menu()
