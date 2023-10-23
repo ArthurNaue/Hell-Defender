@@ -81,10 +81,10 @@ def main_menu():
         screen.blit(titulo, (50, -100))
 
         if texto:
-            draw_text("CLICK TO KILL", pygame.font.Font(None, 30), 410, 360)
-            draw_text("+ POINTS = FASTER", pygame.font.Font(None, 30), 380, 390)
-            draw_text("THEY GET YOU", pygame.font.Font(None, 30), 410, 420)
-            draw_text("YOU DIE!", pygame.font.Font(None, 30), 440, 450)
+            draw_text("+ PONTOS = + RAPIDO", pygame.font.Font(None, 30), 360, 390)
+            draw_text("CLIQUE PARA MATAR", pygame.font.Font(None, 30), 368, 360)
+            draw_text("SE TE PEGAREM", pygame.font.Font(None, 30), 390, 420)
+            draw_text("VOCE MORRE!", pygame.font.Font(None, 30), 400, 450)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
