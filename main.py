@@ -288,7 +288,7 @@ def game():
                                 boss_velocidade = 0.35
                             if boss_tipo == olho:
                                 boss_vida = 8
-                                boss_velocidade = 0.08
+                                boss_velocidade = 0.05
                         boss = Inimigos(
                             boss_tipo,
                             boss_vida,
