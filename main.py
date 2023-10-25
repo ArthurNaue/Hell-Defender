@@ -17,6 +17,9 @@ def draw_text(text, font, x, y):
     img = font.render(text, True, (0, 0, 0))
     screen.blit(img, (x, y))
 
+def sprites(variable_name, img1_loc, img2_loc):
+    variable_name.append(pygame.image.load(img1_loc))
+    variable_name.append(pygame.image.load(img2_loc))
 
 def ler_high_score():
     with open("high score.txt", "r") as f:
@@ -115,23 +118,17 @@ def game():
     fps = 20
     indexImg = 0
     esqueleto = []
-    esqueleto.append(pygame.image.load("Images/esqueleto1.png"))
-    esqueleto.append(pygame.image.load("Images/esqueleto2.png"))
+    sprites(esqueleto, "Images/esqueleto1.png", "Images/esqueleto2.png")
     ceifador = []
-    ceifador.append(pygame.image.load("Images/ceifador1.png"))
-    ceifador.append(pygame.image.load("Images/ceifador2.png"))
+    sprites(ceifador, "Images/ceifador1.png", "Images/ceifador2.png")
     aranha = []
-    aranha.append(pygame.image.load("Images/aranha1.png"))
-    aranha.append(pygame.image.load("Images/aranha2.png"))
+    sprites(aranha, "Images/aranha1.png", "Images/aranha2.png")
     fantasma = []
-    fantasma.append(pygame.image.load("Images/fantasma1.png"))
-    fantasma.append(pygame.image.load("Images/fantasma2.png"))
+    sprites(fantasma,"Images/fantasma1.png", "Images/fantasma2.png")
     fogo = []
-    fogo.append(pygame.image.load("Images/fogo1.png"))
-    fogo.append(pygame.image.load("Images/fogo2.png"))
+    sprites(fogo, "Images/fogo1.png", "Images/fogo2.png")
     olho = []
-    olho.append(pygame.image.load("Images/olho1.png"))
-    olho.append(pygame.image.load("Images/olho2.png"))
+    sprites(olho, "Images/olho1.png", "Images/olho2.png")
     inimigo_spawn = False
     lista_inimigos1 = [esqueleto, fantasma]
     lista_inimigos2 = [esqueleto, fantasma, aranha]
@@ -185,20 +182,23 @@ def game():
 
         screen.blit(background, (0, 0))
 
+        def sprite_fogo(fogo_pos1, fogo_pos2):
+            screen.blit(fogo[indexImg], (fogo_pos1, fogo_pos2))
+
         if numero_fogos == 1:
-            screen.blit(fogo[indexImg], (fogo1[0], fogo1[1]))
+            sprite_fogo(fogo1[0], fogo1[1])
         elif numero_fogos == 2:
-            screen.blit(fogo[indexImg], (fogo2[0], fogo1[1]))
-            screen.blit(fogo[indexImg], (fogo3[0], fogo2[1]))
+            sprite_fogo(fogo1[0], fogo1[1])
+            sprite_fogo(fogo2[0], fogo2[1])
         elif numero_fogos == 3:
-            screen.blit(fogo[indexImg], (fogo1[0], fogo1[1]))
-            screen.blit(fogo[indexImg], (fogo2[0], fogo2[1]))
-            screen.blit(fogo[indexImg], (fogo3[0], fogo3[1]))
+            sprite_fogo(fogo1[0], fogo1[1])
+            sprite_fogo(fogo2[0], fogo2[1])
+            sprite_fogo(fogo3[0], fogo3[1])
         elif numero_fogos == 4:
-            screen.blit(fogo[indexImg], (fogo1[0], fogo1[1]))
-            screen.blit(fogo[indexImg], (fogo2[0], fogo2[1]))
-            screen.blit(fogo[indexImg], (fogo3[0], fogo3[1]))
-            screen.blit(fogo[indexImg], (fogo4[0], fogo4[1]))
+            sprite_fogo(fogo1[0], fogo1[1])
+            sprite_fogo(fogo2[0], fogo2[1])
+            sprite_fogo(fogo3[0], fogo3[1])
+            sprite_fogo(fogo4[0], fogo4[1])
 
         screen.blit(castelo, (castelo_pos, castelo_pos))
 
