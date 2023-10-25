@@ -17,9 +17,6 @@ def draw_text(text, font, x, y):
     img = font.render(text, True, (0, 0, 0))
     screen.blit(img, (x, y))
 
-def sprites(variable_name, img1_loc, img2_loc):
-    variable_name.append(pygame.image.load(img1_loc))
-    variable_name.append(pygame.image.load(img2_loc))
 
 def ler_high_score():
     with open("high score.txt", "r") as f:
@@ -107,6 +104,13 @@ def main_menu():
 
 
 def game():
+    def sprites(variable_name, img1_loc, img2_loc):
+        variable_name.append(pygame.image.load(img1_loc))
+        variable_name.append(pygame.image.load(img2_loc))
+
+    def fogoPos():
+        return random.randint(32, 568)
+
     black = (0, 0, 0)
     screen.fill(black)
     running = True
@@ -124,7 +128,7 @@ def game():
     aranha = []
     sprites(aranha, "Images/aranha1.png", "Images/aranha2.png")
     fantasma = []
-    sprites(fantasma,"Images/fantasma1.png", "Images/fantasma2.png")
+    sprites(fantasma, "Images/fantasma1.png", "Images/fantasma2.png")
     fogo = []
     sprites(fogo, "Images/fogo1.png", "Images/fogo2.png")
     olho = []
@@ -139,10 +143,10 @@ def game():
     ataque = pygame.image.load("Images/ataque.png")
     cooldown = 60
     explosao = pygame.mixer.Sound("Sounds/explosion.wav")
-    fogo1 = ((random.randint(32, 568)), (random.randint(32, 568)))
-    fogo2 = ((random.randint(32, 568)), (random.randint(32, 568)))
-    fogo3 = ((random.randint(32, 568)), (random.randint(32, 568)))
-    fogo4 = ((random.randint(32, 568)), (random.randint(32, 568)))
+    fogo1 = ((fogoPos()), (fogoPos()))
+    fogo2 = ((fogoPos()), (fogoPos()))
+    fogo3 = ((fogoPos()), (fogoPos()))
+    fogo4 = ((fogoPos()), (fogoPos()))
     numero_fogos = random.randint(1, 4)
     pontos_boss = 15
     contagem_boss = 0
