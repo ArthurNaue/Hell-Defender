@@ -12,17 +12,21 @@ musica = pygame.mixer.music.load("Sounds/musica.wav")
 pygame.mixer.music.play(-1)
 background = pygame.image.load("Images/background.png")
 
+
 def draw_text(text, font, x, y):
     img = font.render(text, True, (0, 0, 0))
     screen.blit(img, (x, y))
 
+
 def ler_high_score():
-    with open ("high score.txt", "r") as f:
+    with open("high score.txt", "r") as f:
         return f.read()
+
 
 def sair():
     pygame.quit()
-    sys.exit() 
+    sys.exit()
+
 
 def main_menu():
     running = True
@@ -42,13 +46,13 @@ def main_menu():
     texto3 = "SAIR"
     texto1_surface = font.render(texto1, True, (0, 0, 0))
     texto1_rect = texto1_surface.get_rect()
-    texto1_rect.center =  botao1_rect.center
+    texto1_rect.center = botao1_rect.center
     texto2_surface = font.render(texto2, True, (0, 0, 0))
     texto2_rect = texto2_surface.get_rect()
     texto2_rect.center = botao2_rect.center
     texto3_surface = font.render(texto3, True, (0, 0, 0))
     texto3_rect = texto3_surface.get_rect()
-    texto3_rect.center =  botao3_rect.center
+    texto3_rect.center = botao3_rect.center
     titulo = pygame.image.load("Images/titulo.png")
     botao4 = pygame.image.load("Images/botao2.png")
     botao4_rect = botao4.get_rect()
@@ -60,14 +64,20 @@ def main_menu():
     texto4_rect.center = botao4_rect.center
 
     while running:
-        if pygame.mouse.get_pressed()[0] and botao1_rect.collidepoint(pygame.mouse.get_pos()):
+        if pygame.mouse.get_pressed()[0] and botao1_rect.collidepoint(
+            pygame.mouse.get_pos()
+        ):
             game()
-        if pygame.mouse.get_pressed()[0] and botao2_rect.collidepoint(pygame.mouse.get_pos()):
+        if pygame.mouse.get_pressed()[0] and botao2_rect.collidepoint(
+            pygame.mouse.get_pos()
+        ):
             texto = True
-        if pygame.mouse.get_pressed()[0] and botao3_rect.collidepoint(pygame.mouse.get_pos()):
+        if pygame.mouse.get_pressed()[0] and botao3_rect.collidepoint(
+            pygame.mouse.get_pos()
+        ):
             sair()
 
-        screen.blit(background, (0,0))
+        screen.blit(background, (0, 0))
         screen.blit(botao1, (250, 300))
         screen.blit(botao2, (250, 400))
         screen.blit(botao3, (250, 500))
@@ -92,10 +102,11 @@ def main_menu():
 
         pygame.display.update()
 
+
 def game():
     black = (0, 0, 0)
     screen.fill(black)
-    running =  True
+    running = True
     castelo = pygame.image.load("Images/castelo.png")
     castelo_rect = pygame.Rect(275, 275, 50, 50)
     castelo_pos = 236
@@ -138,7 +149,16 @@ def game():
     numero_fogos = random.randint(1, 4)
     pontos_boss = 15
     contagem_boss = 0
-    posicoes_possiveis = [(-100, -100), (-100, 320), (-100, 700), (300, 700), (700, 700), (700, 320), (700, -100), (300, -100)]
+    posicoes_possiveis = [
+        (-100, -100),
+        (-100, 275),
+        (-100, 700),
+        (275, 700),
+        (700, 700),
+        (700, 275),
+        (700, -100),
+        (275, -100),
+    ]
     pygame.time.set_timer(spawn, 3000)
 
     try:
@@ -183,7 +203,9 @@ def game():
         screen.blit(castelo, (castelo_pos, castelo_pos))
 
         if inimigo_spawn:
-            if pygame.mouse.get_pressed()[0] and inimigo.rect.collidepoint(pygame.mouse.get_pos()):
+            if pygame.mouse.get_pressed()[0] and inimigo.rect.collidepoint(
+                pygame.mouse.get_pos()
+            ):
                 if cooldown == 0:
                     screen.blit(ataque, inimigo.pos)
                     vida -= 1
@@ -237,8 +259,10 @@ def game():
                     if tipo == aranha:
                         vida = 1
                         velocidade = 2.5 * multiplicador_velocidade
-                    inimigo = Inimigos(tipo, vida, velocidade, inimigo_position[0], inimigo_position[1])
-                
+                    inimigo = Inimigos(
+                        tipo, vida, velocidade, inimigo_position[0], inimigo_position[1]
+                    )
+
                 if pontos >= pontos_boss:
                     pontos_boss = pontos_boss * 2
                     if boss_spawn == False:
@@ -261,10 +285,14 @@ def game():
                             if boss_tipo == olho:
                                 boss_vida = 8
                                 boss_velocidade = 0.08
-                        boss = Inimigos(boss_tipo, boss_vida, boss_velocidade, boss_pos[0], boss_pos[1])
+                        boss = Inimigos(
+                            boss_tipo,
+                            boss_vida,
+                            boss_velocidade,
+                            boss_pos[0],
+                            boss_pos[1],
+                        )
                         boss.seguir(destino)
-
-
 
         if boss_spawn:
             boss_rect = boss.tipo[0].get_rect()
@@ -279,7 +307,9 @@ def game():
             if boss_pos[1] > destino[1]:
                 boss_pos[1] -= 0.35
 
-            if pygame.mouse.get_pressed()[0] and boss_rect.collidepoint(pygame.mouse.get_pos()):
+            if pygame.mouse.get_pressed()[0] and boss_rect.collidepoint(
+                pygame.mouse.get_pos()
+            ):
                 if cooldown == 0:
                     screen.blit(ataque, boss_pos)
                     boss_vida -= 1
@@ -291,10 +321,10 @@ def game():
             screen.blit(boss.tipo[indexImg], boss_pos)
             if boss_tipo == ceifador:
                 draw_text("REAPER", pygame.font.Font(None, 40), 240, 70)
-                draw_text(str(boss_vida), pygame.font.Font(None,50), 290, 100)
+                draw_text(str(boss_vida), pygame.font.Font(None, 50), 290, 100)
             elif boss_tipo == olho:
                 draw_text("EYE OF TRUTH", pygame.font.Font(None, 40), 195, 70)
-                draw_text(str(boss_vida), pygame.font.Font(None,50), 290, 100)
+                draw_text(str(boss_vida), pygame.font.Font(None, 50), 290, 100)
 
             if boss_rect.colliderect(castelo_rect):
                 explosao.play()
@@ -303,6 +333,7 @@ def game():
         pygame.display.update()
 
         clock.tick(60)
+
 
 def game_over():
     running = True
@@ -320,7 +351,7 @@ def game_over():
     texto2 = "SAIR"
     texto1_surface = font.render(texto1, True, (0, 0, 0))
     texto1_rect = texto1_surface.get_rect()
-    texto1_rect.center =  botao1_rect.center
+    texto1_rect.center = botao1_rect.center
     texto2_surface = font.render(texto2, True, (0, 0, 0))
     texto2_rect = texto2_surface.get_rect()
     texto2_rect.center = botao2_rect.center
@@ -332,12 +363,16 @@ def game_over():
     texto3_rect.center = botao3_rect.center
 
     while running:
-        if pygame.mouse.get_pressed()[0] and botao1_rect.collidepoint(pygame.mouse.get_pos()):
+        if pygame.mouse.get_pressed()[0] and botao1_rect.collidepoint(
+            pygame.mouse.get_pos()
+        ):
             game()
-        if pygame.mouse.get_pressed()[0] and botao2_rect.collidepoint(pygame.mouse.get_pos()):
+        if pygame.mouse.get_pressed()[0] and botao2_rect.collidepoint(
+            pygame.mouse.get_pos()
+        ):
             sair()
 
-        screen.blit(background, (0,0))
+        screen.blit(background, (0, 0))
         screen.blit(botao1, (250, 300))
         screen.blit(botao2, (250, 400))
         screen.blit(texto1_surface, texto1_rect)
@@ -353,5 +388,6 @@ def game_over():
                 sair()
 
         pygame.display.update()
+
 
 main_menu()

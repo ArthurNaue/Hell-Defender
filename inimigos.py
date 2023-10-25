@@ -1,4 +1,6 @@
 import pygame
+
+
 class Inimigos:
     def __init__(self, tipo, vida, velocidade, x, y):
         self.tipo = tipo
@@ -18,5 +20,5 @@ class Inimigos:
             self.pos[1] += 1 * self.velocidade
         if self.pos[1] > destino[1]:
             self.pos[1] -= 1 * self.velocidade
-        
+
         self.rect.topleft = self.pos
