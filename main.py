@@ -280,7 +280,7 @@ def game():
                         if contagem_boss == 2:
                             boss_tipo = olho
                             boss_vida = 8
-                            boss_velocidade = 0.08
+                            boss_velocidade = 0.05
                         if contagem_boss >= 3:
                             boss_tipo = random.choice(lista_boss)
                             if boss_tipo == ceifador:
